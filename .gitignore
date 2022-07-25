@@ -1,0 +1,6 @@
+#ignore node modules folder because it is heavy in size
+node_modules/
+
+package-lock.json
+
+.env
