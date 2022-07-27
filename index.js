@@ -49,6 +49,88 @@ app.get('/users', async  (req, res) => {
     }
 })
 
+//Fetching a user by id
+app.get('/users/:id', async (req, res) => {
+  const {id} = req.params
+  const user = await UserModel.findById(id)
+  if (user){
+    res.status(200).json({
+        data: user,
+        message: 'User fetched successfully'
+    })
+} else {
+    res.json({
+        message: 'Unable to fetch user'
+    })
+}
+
+})
+
+// Creating a user
+app.post('/user', async (req, res) => {
+ const {userName, email, password} = req.body
+ const newUser = await UserModel.create({
+    userName,
+    email,
+    password
+ })
+ if (newUser){
+    res.status(200).json({
+        data: newUser,
+        message: 'User created successfully'
+    })
+} else {
+    res.json({
+        message: 'Unable to create user'
+    })
+}
+})
+
+//Update user userName and email address
+app.patch('/users/:id', async (req, res) => {
+   const {id} = req.params
+   const {userName, email} = req.body
+
+   const updateUser = await UserModel.updateOne({
+    userName,
+    email
+   }).where({id:id})
+  
+   if (updateUser){
+    res.status(200).json({
+        data: updateUser,
+        message: 'User updated successfully'
+    })
+} else {
+    res.json({
+        message: 'Unable to update user credentials'
+    })
+}
+
+})
+
+//Delete a user
+app.delete('/users/:id', async (req, res) => {
+     const {id} = req.params
+    const deletedUser = await UserModel.findByIdAndDelete(id)
+
+    if (deletedUser){
+        res.status(200).json({
+            data: deletedUser,
+            message: 'User deleted successfully'
+        })
+    } else {
+        res.json({
+            message: 'Unable to delete user'
+        })
+    }
+
+})
+
+
+
+
+
 
 
 
