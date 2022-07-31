@@ -133,23 +133,6 @@ app.delete('/users/:id', async (req, res) => {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 app.listen(PORT, () => {
     console.log(`Server listening on port ${PORT}`)
 })
